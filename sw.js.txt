@@ -1,0 +1,39 @@
+const CACHE_NAME = 'harvester-v1';
+const ASSETS = [
+  'index.html',
+  'manifest.json',
+  'https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;800&family=Nunito:wght=400;600;700;800&display=swap'
+];
+
+// Install Service Worker and Cache Assets
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(ASSETS);
+    })
+  );
+});
+
+// Activate and Clear Old Caches
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+});
+
+// Fetch Assets from Cache Offline
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((cachedResponse) => {
+      return cachedResponse || fetch(e.request);
+    })
+  );
+});

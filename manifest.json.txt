@@ -1,0 +1,16 @@
+{
+  "name": "Paddy Harvester Co.",
+  "short_name": "Harvester",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#052e16",
+  "theme_color": "#052e16",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/2316/2316041.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
